@@ -1,0 +1,200 @@
+
+\documentclass[11pt, pdftex]{article}
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{ifthen}
+\usepackage[margin=1in]{geometry}
+
+
+
+
+\title{Assignment 2 - Using Cryptographic Libraries}
+\author{Siddhant Deshmukh}
+\date{2-1-2016}
+
+\usepackage{hyperref} 
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\begin{document}
+\maketitle
+
+
+
+\section{Introduction}
+In this assignment I compared the performance trade-offs between various symmetric encryption, asymmetric encryption and hashing algorithms. I used the Gcrypt library provided by the Linux operating system and used a Macbook Pro to run the code.
+
+
+\section{Details of Machine}
+\begin{enumerate}
+	\item Processor
+	\begin{itemize}
+		\item 2.7GHz dual-core Intel Core i5 processor with Turbo Boost up to 3.1GHz
+		\item 3MB shared L3 cache
+	\end{itemize}
+	\item Memory
+	\begin{itemize}
+		\item 8GB of 1866MHz LPDDR3 (RAM)
+		\item 256GB PCIe-based flash storage (Internal Memory)
+	\end{itemize}
+	\item Graphics
+	\begin{itemize}
+		\item Intel Iris Graphics 6100
+	\end{itemize}
+	
+\end{enumerate}
+
+\section{Input File Used}
+\begin{itemize}
+	\item Used input file "book.txt" which is a text file containing multiple novels.
+	\item Length is 117.1 MB
+\end{itemize}
+
+\section{AES 128}
+\begin{enumerate}
+	\item Block Length : 128 bits (16 bytes)
+	\item Mode : Counter Mode
+	\item Counter Length : 128 bits (16 bytes)
+	\item Key Length : 128 bits (16 bytes)
+	\item Time Analysis : 
+	\begin{itemize}
+		\item Mean Encryption Time : 8982.12 ms
+		\item Mean Decryption Time : 21736.38 ms
+		\item Median Encryption Time : 8543.76 ms
+		\item Median Decryption Time : 20827.56 ms
+	\end{itemize}
+\end{enumerate}
+\begin{figure}[t]
+	\caption{Output for AES 128}
+	\centering
+    \includegraphics{aes128}
+\end{figure}
+
+
+\section{AES 256}
+\begin{enumerate}
+	\item Block Length : 128 bits (16 bytes)
+	\item Mode : Counter Mode
+	\item Counter Length : 128 bits (16 bytes)
+	\item Key length : 256 bits (32 bytes)
+	\item Time Analysis : 
+	\begin{itemize}
+		\item Mean Encryption Time : 11946.21 ms
+		\item Mean Decryption Time : 26518.38 ms
+		\item Median Encryption Time : 10252.51 ms
+		\item Median Decryption Time : 26525.98 ms
+	\end{itemize}
+\end{enumerate}
+\newpage
+\begin{figure}[t]
+	\caption{Output for AES 256}
+	\centering
+	\includegraphics{aes256}
+\end{figure}
+
+\section{MD5}
+\begin{enumerate}
+	\item Key length : 64 bytes
+	\item Time Analysis : 
+	\begin{itemize}
+		\item Mean Hashing Time : 292.00 ms
+		\item Median Hashing Time : 289.29 ms
+	\end{itemize}
+\end{enumerate}
+\begin{figure}[t]
+	\caption{Output for MD5}
+	\centering
+	\includegraphics{md5}
+\end{figure}
+
+\section{SHA 1}
+\begin{enumerate}
+	\item Key length : 64 bytes
+	\item Time Analysis : 
+	\begin{itemize}
+		\item Mean Hashing Time : 292.74 ms
+		\item Median Hashing Time : 276.99 ms
+	\end{itemize}
+\end{enumerate}
+\begin{figure}[t]
+	\caption{Output for SHA 1}
+	\centering
+	\includegraphics{sha1}
+\end{figure}
+
+\section{SHA 256}
+\begin{enumerate}
+	\item Key length : 64 bytes
+	\item Time Analysis : 
+	\begin{itemize}
+		\item Mean Hashing Time : 685.44 ms
+		\item Median Hashing Time : 644.10 ms
+	\end{itemize}
+\end{enumerate}
+\begin{figure}[t]
+	\caption{Output for SHA 256}
+	\centering
+	\includegraphics{sha256}
+\end{figure}
+
+
+\section{RSA 1024}
+\begin{enumerate}
+	\item Block Length : 64 bytes
+	\item Mode : Electronic code book (ECB)
+	\item Key length : 1024 bits
+	\item Time Analysis : 
+	\begin{itemize}
+		\item Mean Encryption Time : 63876.03 ms (~ 64 seconds)
+		\item Mean Decryption Time : 2718494.11 ms (~45 minutes)
+		\item Median Encryption Time : 61432.29 ms 
+		\item Median Decryption Time : 2819290.55 ms
+	\end{itemize}
+\end{enumerate}
+\begin{figure}[t]
+	\caption{Output for RSA 1024}
+	\centering
+	\includegraphics{rsa1024}
+\end{figure}
+\newpage
+\section{RSA 4096}
+\begin{enumerate}
+	\item Block Length : 64 bytes
+	\item Mode : Electronic code book (ECB)
+	\item Key length : 4096 bits
+	\item Time Analysis : 
+	\begin{itemize}
+		\item RSA 4096 took an excruciatingly long time to run and I ran it for about 2-3 days and got readings based on that.
+		\item Mean Encryption Time : 362177.03 ms (~6 minutes)
+		\item Mean Decryption Time : 53608703.11 ms (~15 hours)
+		\item Median Encryption Time : 362177.03 ms
+		\item Median Decryption Time : 52649835.63 ms
+	\end{itemize}
+\end{enumerate}
+\begin{figure}[t]
+	\caption{Output for RSA 4096}
+	\centering
+	\includegraphics{rsa4096}
+\end{figure}
+\newpage
+\section{Digital Signature}
+I generated a digital signature (using HMAC SHA256 and RSA 4096). I printed the S-expression of the encrypted HMAC SHA256 of the input file.
+\begin{figure}[t]
+	\caption{Output for Digital Signature}
+	\centering
+	\includegraphics{ds}
+\end{figure}
+
+\newpage
+\begin{figure}[t]
+	\caption{Following charts show the performance comparison between the algorithms. Each chart has running time on Y-axis and algorithm on X-axis. As expected MD5 is the fastest, followed by SHA 1, SHA 256, AES 128, AES 256, RSA 1024 and finally RSA 4096. The bottom-most chart shows the order of the algorithms in terms of running time from left to right(fastest algorithm on the left). }
+	\centering
+	\includegraphics{charts}
+\end{figure}
+\newpage
+
+\section{Conclusion}
+On a concluding note, I learned a tremendous amount from this assignment. Firstly, I used a low level programming language(c) for the first time and it was an extremely interesting and challenging experience. I have used all the same cryptographic libraries in a previous project(done in scala) but using gcrypt in c was much more challenging. Secondly, I learned how to use the basic security techniques and I am confident about securing any project of mine in the future. Finally, I got an insight about the running time of the various algorithms. As Professor Traynor had told us in class that some facts would be embedded deeply in our minds after we complete the project. This is exactly what happened in my case as I realized how slow RSA is compared to hashing and AES and how fast the hashing algorithms are compared to the ciphers. We shoud use RSA only for the initial key exchange(AES key) and encrypt all the subsequent messages and files using AES. I used charts to complete my analysis as shown on the next page.
+
+
+\end{document}
